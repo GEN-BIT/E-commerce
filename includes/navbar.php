@@ -1,9 +1,18 @@
 <nav class="navbar">
     <a class="navbar-brand" href="<?= BASE_URL ?>/index.php">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12.6 2H20a2 2 0 0 1 2 2v7.4a2 2 0 0 1-.59 1.41l-8.5 8.5a2 2 0 0 1-2.82 0l-7.4-7.4a2 2 0 0 1 0-2.82l8.5-8.5A2 2 0 0 1 12.6 2Z"
-                  stroke="#C89B3C" stroke-width="1.8" stroke-linejoin="round"/>
-            <circle cx="16.5" cy="7.5" r="1.6" fill="#C89B3C"/>
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="navIconGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2F5D50"/>
+              <stop offset="1" stop-color="#1E3D34"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 4L56 18v28L32 60 8 46V18L32 4z" fill="url(#navIconGrad)" stroke="#C89B3C" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M20 22l4-8M44 22l-4-8" stroke="#C89B3C" stroke-width="4" stroke-linecap="round"/>
+          <path d="M26 26h12l-2 10H28l-2-10z" fill="#C89B3C"/>
+          <path d="M28 26v-4c0-2.2 1.8-4 4-4h0c2.2 0 4 1.8 4 4v4" stroke="#1E3D34" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="36" r="3" fill="#1E3D34"/>
+          <path d="M16 16l-4-4M48 16l4-4M16 48l-4 4M48 48l4 4" stroke="#2F5D50" stroke-width="3.5" stroke-linecap="round" opacity=".7"/>
         </svg>
         <?= sanitize(get_setting('site_name', SITE_NAME)) ?>
     </a>
