@@ -1,1 +1,49 @@
 /* Product listing/detail - Stage 1 */
+
+/* =========================================================
+   Category filter bar (products/index.php)
+   ========================================================= */
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 1rem 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+.category-filter a {
+    padding: .45rem 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--color-ink);
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.category-filter a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-forest-dk);
+    text-decoration: none;
+}
+.category-filter a.active {
+    background: var(--color-forest-dk);
+    color: #fff;
+    border-color: var(--color-forest-dk);
+}
+
+/* =========================================================
+   Category page header context
+   ========================================================= */
+.category-header {
+    margin-bottom: 1.5rem;
+}
+.category-header h1 {
+    margin-bottom: .25rem;
+}
+.category-header .category-meta {
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    color: var(--color-ink-soft);
+}

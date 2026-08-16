@@ -2,6 +2,13 @@
 require_once __DIR__ . '/../config/config.php';
 
 $categoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;
+$categoryName = null;
+
+if ($categoryId) {
+    $stmt = $pdo->prepare('SELECT name FROM categories WHERE id = ?');
+    $stmt->execute([$categoryId]);
+    $categoryName = $stmt->fetchColumn();
+}
 
 $perPage = 12;
 $page = max(1, (int) ($_GET['page'] ?? 1));
@@ -33,14 +40,16 @@ $products = $stmt->fetchAll();
 
 include __DIR__ . '/../includes/header.php';
 ?>
-<h1>All Products</h1>
+<h1><?= $categoryName ? sanitize($categoryName) : 'All Products' ?></h1>
 
-<nav>
-    <a href="<?= BASE_URL ?>/products/index.php">All</a>
+<nav class="category-filter" aria-label="Category filter">
+    <a href="<?= BASE_URL ?>/products/index.php" class="<?= !$categoryId ? 'active' : '' ?>">All</a>
     <?php foreach ($categories as $c): ?>
-        | <a href="<?= BASE_URL ?>/products/index.php?category=<?= $c['id'] ?>"><?= sanitize($c['name']) ?></a>
+        <a href="<?= BASE_URL ?>/products/index.php?category=<?= $c['id'] ?>" class="<?= $categoryId === (int) $c['id'] ? 'active' : '' ?>">
+            <?= sanitize($c['name']) ?>
+        </a>
     <?php endforeach; ?>
-    | <a href="<?= BASE_URL ?>/products/search.php">Search</a>
+    <a href="<?= BASE_URL ?>/products/search.php">Search</a>
 </nav>
 
 <?php if (!empty($_GET['msg'])): ?>
