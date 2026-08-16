@@ -20,7 +20,7 @@ include __DIR__ . '/../../includes/sidebar.php';
 <h1><?= sanitize($product['name']) ?></h1>
 
 <?php if ($product['image']): ?>
-    <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="" width="200">
+    <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>" title="<?= sanitize($product['description'] ?? $product['name']) ?>" width="200">
 <?php endif; ?>
 
 <ul>

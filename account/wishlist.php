@@ -16,7 +16,7 @@ include __DIR__ . '/../includes/header.php';
             <div class="product-card">
                 <a href="<?= BASE_URL ?>/products/product.php?id=<?= $p['id'] ?>">
                     <?php if ($p['image']): ?>
-                        <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($p['image']) ?>" alt="<?= sanitize($p['name']) ?>" width="160">
+                        <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($p['image']) ?>" alt="<?= sanitize($p['description'] ?? $p['name']) ?>" title="<?= sanitize($p['description'] ?? $p['name']) ?>" width="160">
                     <?php endif; ?>
                     <h3><?= sanitize($p['name']) ?></h3>
                 </a>

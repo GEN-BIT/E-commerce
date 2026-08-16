@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../includes/admin-auth.php';
 
 $stmt = $pdo->query(
-    'SELECT p.id, p.name, p.price, p.stock, p.is_active, c.name AS category_name
+    'SELECT p.id, p.name, p.price, p.stock, p.is_active, p.image, c.name AS category_name
      FROM products p
      JOIN categories c ON c.id = p.category_id
      ORDER BY p.created_at DESC'
@@ -23,13 +23,18 @@ include __DIR__ . '/../../includes/sidebar.php';
 <table border="1" cellpadding="6" cellspacing="0">
     <thead>
         <tr>
-            <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Active</th><th>Actions</th>
+            <th>ID</th><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Active</th><th>Actions</th>
         </tr>
     </thead>
     <tbody>
     <?php foreach ($products as $p): ?>
         <tr>
             <td><?= $p['id'] ?></td>
+            <td>
+                <?php if ($p['image']): ?>
+                    <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($p['image']) ?>" alt="<?= sanitize($p['description'] ?? $p['name']) ?>" title="<?= sanitize($p['description'] ?? $p['name']) ?>" width="60">
+                <?php endif; ?>
+            </td>
             <td><?= sanitize($p['name']) ?></td>
             <td><?= sanitize($p['category_name']) ?></td>
             <td><?= format_price((float) $p['price']) ?></td>
@@ -44,7 +49,7 @@ include __DIR__ . '/../../includes/sidebar.php';
         </tr>
     <?php endforeach; ?>
     <?php if (empty($products)): ?>
-        <tr><td colspan="7">No products yet.</td></tr>
+        <tr><td colspan="8">No products yet.</td></tr>
     <?php endif; ?>
     </tbody>
 </table>

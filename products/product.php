@@ -58,7 +58,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="product-detail">
     <div class="product-gallery">
         <?php if ($product['image']): ?>
-            <img id="mainImage" class="gallery-main" src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="<?= sanitize($product['name']) ?>">
+            <img id="mainImage" class="gallery-main" src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>" title="<?= sanitize($product['description'] ?? $product['name']) ?>">
         <?php else: ?>
             <div class="gallery-main gallery-main-empty"></div>
         <?php endif; ?>
@@ -66,10 +66,10 @@ include __DIR__ . '/../includes/header.php';
         <?php if (!empty($gallery)): ?>
             <div class="gallery-thumbs">
                 <?php if ($product['image']): ?>
-                    <img class="gallery-thumb active" src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" data-full="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>">
+                    <img class="gallery-thumb active" src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" data-full="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>">
                 <?php endif; ?>
                 <?php foreach ($gallery as $img): ?>
-                    <img class="gallery-thumb" src="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>" data-full="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>">
+                    <img class="gallery-thumb" src="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>" data-full="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>">
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

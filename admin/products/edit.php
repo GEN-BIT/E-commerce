@@ -113,7 +113,7 @@ include __DIR__ . '/../../includes/sidebar.php';
 <?php endforeach; ?>
 
 <?php if ($product['image']): ?>
-    <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="" width="120">
+    <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($product['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>" title="<?= sanitize($product['description'] ?? $product['name']) ?>" width="120">
 <?php endif; ?>
 
 <form method="post" action="" enctype="multipart/form-data">
@@ -162,7 +162,7 @@ include __DIR__ . '/../../includes/sidebar.php';
     <div class="product-grid">
         <?php foreach ($galleryImages as $img): ?>
             <div class="product-card">
-                <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>" alt="" width="140">
+                <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($img['image']) ?>" alt="<?= sanitize($product['description'] ?? $product['name']) ?>" title="<?= sanitize($product['description'] ?? $product['name']) ?>" width="140">
                 <p>
                     <a class="cart-item-remove"
                        href="<?= BASE_URL ?>/admin/products/delete-image.php?id=<?= $img['id'] ?>&product_id=<?= $id ?>&csrf_token=<?= generate_csrf_token() ?>"

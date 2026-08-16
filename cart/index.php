@@ -29,7 +29,7 @@ include __DIR__ . '/../includes/header.php';
             <?php foreach ($items as $item): ?>
                 <div class="cart-item">
                     <?php if ($item['image']): ?>
-                        <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($item['image']) ?>" alt="<?= sanitize($item['name']) ?>">
+                        <img src="<?= UPLOAD_PRODUCTS_URL . sanitize($item['image']) ?>" alt="<?= sanitize($item['description'] ?? $item['name']) ?>" title="<?= sanitize($item['description'] ?? $item['name']) ?>">
                     <?php else: ?>
                         <div class="cart-item-thumb-empty"></div>
                     <?php endif; ?>
