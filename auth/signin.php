@@ -187,10 +187,14 @@ if ($action === 'forgot_reset') {
 include __DIR__ . '/../includes/header.php';
 ?>
 <div class="auth-shell">
+    <div class="auth-bg-grid"></div>
+    <div class="auth-bg-orb auth-bg-orb--gold"></div>
+    <div class="auth-bg-orb auth-bg-orb--forest"></div>
+
     <div class="auth-card">
         <div class="auth-tabs" role="tablist">
             <button type="button" class="auth-tab-btn <?= $activeTab === 'login' ? 'active' : '' ?>" data-tab="login">Login</button>
-            <button type="button" class="auth-tab-btn <?= $activeTab === 'register' ? 'active' : '' ?>" data-tab="register">Register</button>
+            <button type="button" class="auth-tab-btn <?= $activeTab === 'register' ? 'active' : '' ?>" data-tab="register">Create Account</button>
         </div>
 
         <?php if (!empty($_GET['msg'])): ?>
@@ -209,10 +213,10 @@ include __DIR__ . '/../includes/header.php';
                     <input type="hidden" name="auth_action" value="login">
 
                     <label for="login_email">Email</label>
-                    <input type="email" id="login_email" name="email" value="<?= sanitize($loginEmail) ?>" required>
+                    <input type="email" id="login_email" name="email" value="<?= sanitize($loginEmail) ?>" required autocomplete="email">
 
                     <label for="login_password">Password</label>
-                    <input type="password" id="login_password" name="password" required>
+                    <input type="password" id="login_password" name="password" required autocomplete="current-password">
 
                     <button type="submit">Login</button>
                 </form>
@@ -224,6 +228,8 @@ include __DIR__ . '/../includes/header.php';
 
             <!-- REGISTER -->
             <div class="auth-panel <?= $activeTab === 'register' ? 'active' : '' ?>" data-panel="register">
+                <p class="auth-panel-title">Join the future of shopping</p>
+
                 <?php foreach ($registerErrors as $error): ?>
                     <p class="form-error"><?= sanitize($error) ?></p>
                 <?php endforeach; ?>
@@ -232,17 +238,17 @@ include __DIR__ . '/../includes/header.php';
                     <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                     <input type="hidden" name="auth_action" value="register">
 
-                    <label for="register_name">Name</label>
-                    <input type="text" id="register_name" name="name" value="<?= sanitize($registerName) ?>" required>
+                    <label for="register_name">Full Name</label>
+                    <input type="text" id="register_name" name="name" value="<?= sanitize($registerName) ?>" required autocomplete="name">
 
                     <label for="register_email">Email</label>
-                    <input type="email" id="register_email" name="email" value="<?= sanitize($registerEmail) ?>" required>
+                    <input type="email" id="register_email" name="email" value="<?= sanitize($registerEmail) ?>" required autocomplete="email">
 
                     <label for="register_password">Password</label>
-                    <input type="password" id="register_password" name="password" required minlength="6">
+                    <input type="password" id="register_password" name="password" required minlength="6" autocomplete="new-password">
 
                     <label for="register_confirm">Confirm Password</label>
-                    <input type="password" id="register_confirm" name="confirm_password" required minlength="6">
+                    <input type="password" id="register_confirm" name="confirm_password" required minlength="6" autocomplete="new-password">
 
                     <button type="submit">Create Account</button>
                 </form>
@@ -268,7 +274,7 @@ include __DIR__ . '/../includes/header.php';
                     <input type="hidden" name="auth_action" value="forgot_request">
 
                     <label for="forgot_email">Email</label>
-                    <input type="email" id="forgot_email" name="email" required>
+                    <input type="email" id="forgot_email" name="email" required autocomplete="email">
 
                     <button type="submit">Send Reset Link</button>
                 </form>
@@ -287,10 +293,10 @@ include __DIR__ . '/../includes/header.php';
                         <input type="hidden" name="token" value="<?= sanitize($token) ?>">
 
                         <label for="reset_password">New Password</label>
-                        <input type="password" id="reset_password" name="password" required minlength="6">
+                        <input type="password" id="reset_password" name="password" required minlength="6" autocomplete="new-password">
 
                         <label for="reset_confirm">Confirm New Password</label>
-                        <input type="password" id="reset_confirm" name="confirm_password" required minlength="6">
+                        <input type="password" id="reset_confirm" name="confirm_password" required minlength="6" autocomplete="new-password">
 
                         <button type="submit">Set New Password</button>
                     </form>
@@ -304,25 +310,49 @@ include __DIR__ . '/../includes/header.php';
 
 <script>
 (function () {
-    var buttons = document.querySelectorAll('.auth-tab-btn, .auth-switch-link');
-    var panels = document.querySelectorAll('.auth-panel');
-    var tabButtons = document.querySelectorAll('.auth-tab-btn');
+    function init() {
+        var buttons = document.querySelectorAll('.auth-tab-btn, .auth-switch-link');
+        var panels = document.querySelectorAll('.auth-panel');
+        var currentName = 'login';
 
-    function showTab(name) {
-        panels.forEach(function (p) {
-            p.classList.toggle('active', p.dataset.panel === name);
-        });
-        tabButtons.forEach(function (b) {
-            b.classList.toggle('active', b.dataset.tab === name);
+        var activePanel = document.querySelector('.auth-panel.active');
+        if (activePanel && activePanel.dataset && activePanel.dataset.panel) {
+            currentName = activePanel.dataset.panel;
+        }
+
+        function switchTo(name) {
+            if (name === currentName) return;
+
+            var oldPanel = document.querySelector('.auth-panel.active');
+            var newPanel = null;
+
+            panels.forEach(function (p) {
+                if (p.dataset.panel === name) {
+                    newPanel = p;
+                }
+            });
+
+            if (!oldPanel || !newPanel || oldPanel === newPanel) return;
+
+            oldPanel.classList.remove('active');
+            newPanel.classList.add('active');
+            currentName = name;
+        }
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                if (btn.classList.contains('auth-switch-link')) e.preventDefault();
+                var name = btn.dataset.tab;
+                if (name) switchTo(name);
+            });
         });
     }
 
-    buttons.forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-            if (btn.classList.contains('auth-switch-link')) e.preventDefault();
-            showTab(btn.dataset.tab);
-        });
-    });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
 </script>
 

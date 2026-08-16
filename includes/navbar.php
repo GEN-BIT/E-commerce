@@ -17,15 +17,16 @@
         <?= sanitize(get_setting('site_name', SITE_NAME)) ?>
     </a>
 
-    <form action="<?= BASE_URL ?>/products/search.php" method="get" class="navbar-search">
-        <input type="text" name="q" placeholder="Search products..." value="<?= sanitize($_GET['q'] ?? '') ?>">
-        <button type="submit">Search</button>
-    </form>
-
     <ul class="navbar-links">
         <li><a href="<?= BASE_URL ?>/products/index.php">Products</a></li>
         <li><a href="<?= BASE_URL ?>/products/deals.php">Deals</a></li>
         <li><a href="<?= BASE_URL ?>/products/best-sellers.php">Best Sellers</a></li>
+        <li><a href="<?= BASE_URL ?>/products/search.php" class="nav-search-link" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+        </a></li>
         <li><a href="<?= BASE_URL ?>/cart/index.php">Cart</a></li>
         <?php if (is_logged_in()): ?>
             <li><a href="<?= BASE_URL ?>/account/wishlist.php">Wishlist</a></li>
