@@ -1,0 +1,11 @@
+# Images in this folder must remain publicly viewable - don't deny access here.
+# This only blocks PHP (and similar) from ever being *executed* if uploaded,
+# as a defense-in-depth measure in addition to the MIME-type checks in
+# includes/functions.php (handle_image_upload).
+
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
+
+Options -ExecCGI
+php_flag engine off

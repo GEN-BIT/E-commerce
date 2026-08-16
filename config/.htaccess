@@ -1,0 +1,3 @@
+# Deny all direct requests to this folder - config files should only
+# ever be included by PHP, never requested directly in a browser.
+Require all denied

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<rect width="400" height="400" fill="#F6F3EC"/>
+<rect x="14" y="14" width="372" height="372" rx="6" fill="#FFFDF8" stroke="#5B4636" stroke-width="2" stroke-dasharray="6 5"/>
+<circle cx="40" cy="14" r="9" fill="#F6F3EC" stroke="#5B4636" stroke-width="2" stroke-dasharray="4 4"/>
+<circle cx="200" cy="180" r="70" fill="#5B4636" opacity="0.12"/>
+<text x="200" y="200" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#5B4636" text-anchor="middle">MF</text>
+<text x="200" y="340" font-family="Arial, sans-serif" font-size="17" fill="#1E2A22" text-anchor="middle">Memory Foam Pillow</text>
+</svg>
