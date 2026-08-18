@@ -2,13 +2,17 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
-$stmt = $pdo->prepare('SELECT name, email, phone, address, role, created_at FROM users WHERE id = ?');
+$stmt = $pdo->prepare('SELECT name, email, phone, address, profile_image, role, created_at FROM users WHERE id = ?');
 $stmt->execute([current_user_id()]);
 $user = $stmt->fetch();
 
 include __DIR__ . '/../includes/header.php';
 ?>
 <h1>Profile</h1>
+
+<?php if ($user['profile_image']): ?>
+    <p><img src="<?= sanitize(profile_image_url($user['profile_image'])) ?>" alt="<?= sanitize($user['name']) ?>" width="120" style="border-radius:50%;"></p>
+<?php endif; ?>
 
 <table>
     <tbody>

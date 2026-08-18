@@ -11,9 +11,22 @@ if ($id === current_user_id()) {
     redirect('admin/users/index.php?msg=' . urlencode('You cannot delete your own account.'));
 }
 
-$stmt = $pdo->prepare('DELETE FROM users WHERE id = ?');
-$stmt->execute([$id]);
+try {
+    $pdo->beginTransaction();
 
-log_action(current_user_id(), 'user_deleted', "user_id={$id}");
+    $pdo->prepare('DELETE FROM cart WHERE user_id = ?')->execute([$id]);
+    $pdo->prepare('DELETE FROM password_resets WHERE user_id = ?')->execute([$id]);
+    $pdo->prepare('DELETE FROM reviews WHERE user_id = ?')->execute([$id]);
+    $pdo->prepare('DELETE FROM wishlist WHERE user_id = ?')->execute([$id]);
+    $pdo->prepare('DELETE FROM orders WHERE user_id = ?')->execute([$id]);
+    $pdo->prepare('DELETE FROM users WHERE id = ?')->execute([$id]);
 
-redirect('admin/users/index.php?msg=' . urlencode('User deleted.'));
+    $pdo->commit();
+
+    log_action(current_user_id(), 'user_deleted', "user_id={$id}");
+
+    redirect('admin/users/index.php?msg=' . urlencode('User permanently deleted.'));
+} catch (Exception $e) {
+    $pdo->rollBack();
+    redirect('admin/users/index.php?msg=' . urlencode('Delete failed: ' . $e->getMessage()));
+}

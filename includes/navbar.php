@@ -29,8 +29,18 @@
         </a></li>
         <li><a href="<?= BASE_URL ?>/cart/index.php">Cart</a></li>
         <?php if (is_logged_in()): ?>
+            <?php
+                $navUser = $pdo->prepare('SELECT profile_image FROM users WHERE id = ?');
+                $navUser->execute([current_user_id()]);
+                $navProfile = $navUser->fetchColumn();
+            ?>
             <li><a href="<?= BASE_URL ?>/account/wishlist.php">Wishlist</a></li>
-            <li><a href="<?= BASE_URL ?>/account/index.php">My Account</a></li>
+            <li>
+                <a href="<?= BASE_URL ?>/account/index.php" style="display:inline-flex;align-items:center;gap:.4rem;">
+                    <img class="navbar-avatar" src="<?= sanitize(profile_image_url($navProfile ?: null)) ?>" alt="" width="28" height="28">
+                    My Account
+                </a>
+            </li>
             <li><a href="<?= BASE_URL ?>/auth/logout.php">Logout</a></li>
         <?php else: ?>
             <li><a href="<?= BASE_URL ?>/auth/signin.php" class="btn-signin">Sign In</a></li>

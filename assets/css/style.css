@@ -120,6 +120,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 .navbar-links a:hover { color: var(--color-accent); text-decoration: none; }
 
+.navbar-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-line);
+}
+
 /* =========================================================
    Footer
    ========================================================= */
@@ -1180,4 +1188,58 @@ tbody tr:hover { background: rgba(200, 155, 60, 0.06); }
 .auth-card button[type=submit]:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(30,42,34,0.15);
+}
+
+.phone-input-wrap {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    overflow: hidden;
+}
+
+.phone-code {
+    display: inline-flex;
+    align-items: center;
+    padding: .65rem .75rem;
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: .92rem;
+    border-right: 1px solid var(--color-line);
+    white-space: nowrap;
+}
+
+.phone-input-wrap input {
+    flex: 1;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: .65rem .8rem !important;
+}
+
+.phone-input-wrap input:focus {
+    box-shadow: none !important;
+}
+
+.phone-hint {
+    margin: .35rem 0 0;
+    font-size: .82rem;
+}
+
+.neon-theme .phone-input-wrap {
+    background: #0a1030;
+    border-color: rgba(39,232,255,.4);
+}
+
+.neon-theme .phone-code {
+    background: rgba(10,14,37,.8);
+    border-right-color: rgba(39,232,255,.4);
+    color: #eafcff;
+}
+
+.neon-theme .phone-input-wrap input {
+    background: transparent !important;
+    color: #eafcff !important;
 }
