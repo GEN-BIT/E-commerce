@@ -527,6 +527,14 @@ tbody tr:hover { background: rgba(200, 155, 60, 0.06); }
     padding-left: calc(.6rem - 3px);
 }
 
+.back-to-dashboard {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--color-ink-soft);
+    font-size: .9rem;
+}
+.back-to-dashboard:hover { color: var(--color-accent); text-decoration: none; }
+
 /* =========================================================
    Homepage hero + category chips
    ========================================================= */

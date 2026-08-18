@@ -27,18 +27,22 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
         </a></li>
-        <li><a href="<?= BASE_URL ?>/cart/index.php">Cart</a></li>
+        <?php if (!is_admin()): ?>
+            <li><a href="<?= BASE_URL ?>/cart/index.php">Cart</a></li>
+        <?php endif; ?>
         <?php if (is_logged_in()): ?>
             <?php
                 $navUser = $pdo->prepare('SELECT profile_image FROM users WHERE id = ?');
                 $navUser->execute([current_user_id()]);
                 $navProfile = $navUser->fetchColumn();
             ?>
-            <li><a href="<?= BASE_URL ?>/account/wishlist.php">Wishlist</a></li>
+            <?php if (!is_admin()): ?>
+                <li><a href="<?= BASE_URL ?>/account/wishlist.php">Wishlist</a></li>
+            <?php endif; ?>
             <li>
-                <a href="<?= BASE_URL ?>/account/index.php" style="display:inline-flex;align-items:center;gap:.4rem;">
+                <a href="<?= is_admin() ? BASE_URL . '/admin/index.php' : BASE_URL . '/account/index.php' ?>" style="display:inline-flex;align-items:center;gap:.4rem;">
                     <img class="navbar-avatar" src="<?= sanitize(profile_image_url($navProfile ?: null)) ?>" alt="" width="28" height="28">
-                    My Account
+                    <?= is_admin() ? 'Dashboard' : 'My Account' ?>
                 </a>
             </li>
             <li><a href="<?= BASE_URL ?>/auth/logout.php">Logout</a></li>

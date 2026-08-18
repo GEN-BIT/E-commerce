@@ -254,7 +254,7 @@ include __DIR__ . '/../includes/header.php';
                     <p class="form-error"><?= sanitize($error) ?></p>
                 <?php endforeach; ?>
 
-                <form method="post" action="<?= BASE_URL ?>/auth/signin.php">
+                <form method="post" action="<?= BASE_URL ?>/auth/signin.php" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                     <input type="hidden" name="auth_action" value="register">
 
@@ -328,7 +328,7 @@ include __DIR__ . '/../includes/header.php';
                 <p class="auth-panel-title">Set a new password</p>
 
                 <?php if ($resetTokenValid): ?>
-                <form method="post" action="<?= BASE_URL ?>/auth/signin.php" enctype="multipart/form-data">
+                <form method="post" action="<?= BASE_URL ?>/auth/signin.php">
                         <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                         <input type="hidden" name="auth_action" value="forgot_reset">
                         <input type="hidden" name="token" value="<?= sanitize($token) ?>">
