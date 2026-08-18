@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
+if (is_admin()) {
+    redirect('admin/index.php');
+}
+
 $items = get_wishlist(current_user_id());
 
 include __DIR__ . '/../includes/header.php';

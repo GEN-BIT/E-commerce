@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
+if (is_admin()) {
+    redirect('admin/index.php');
+}
+
 $items = get_cart_items(current_user_id());
 $total = get_cart_total(current_user_id());
 

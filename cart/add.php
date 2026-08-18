@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
+if (is_admin()) {
+    redirect('admin/index.php');
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !verify_csrf_token($_POST['csrf_token'] ?? null)) {
     redirect('products/index.php?msg=' . urlencode('Invalid request.'));
 }

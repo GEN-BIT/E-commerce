@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
+if (is_admin()) {
+    redirect('admin/index.php');
+}
+
 $orderId = (int) ($_GET['order_id'] ?? 0);
 $order = get_order($orderId, current_user_id());
 

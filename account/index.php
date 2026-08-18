@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../config/config.php';
 require_login();
 
+if (is_admin()) {
+    redirect('admin/index.php');
+}
+
 $stmt = $pdo->prepare('SELECT name, email, role, created_at FROM users WHERE id = ?');
 $stmt->execute([current_user_id()]);
 $user = $stmt->fetch();
